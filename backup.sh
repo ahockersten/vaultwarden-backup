@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 mkdir -p /tmp/backup
 sqlite3 data/db.sqlite3 "VACUUM INTO '/tmp/backup/db.sqlite3'"
 cp -a /data/attachments /data/sends /data/config.json /data/rsa_key* /data/icon_cache /tmp/backup
