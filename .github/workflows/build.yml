@@ -36,6 +36,9 @@ jobs:
         project_id: ${{ env.GCP_PROJECT_ID }}
         workload_identity_provider: 'projects/409124407996/locations/global/workloadIdentityPools/${{env.POOL_ID}}/providers/${{env.PROVIDER_ID}}'
 
+    - name: Configure Docker for GAR
+      run: gcloud auth configure-docker ${{ env.GAR_LOCATION }}-docker.pkg.dev --quiet
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
