@@ -52,11 +52,15 @@ jobs:
           ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GAR_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
           ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GAR_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-    - name: Deploy to Cloud Run
-      if: success() # Only run on successful push
-      run: |
-        gcloud run deploy ${{ env.CLOUD_RUN_SERVICE_NAME }} \
-          --image ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GAR_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest \
-          --region ${{ env.CLOUD_RUN_REGION }} \
-          --project ${{ env.GCP_PROJECT_ID }} \
-          --quiet
+    # TODO: this is not needed. The job will of course pick up the latest image when run, with no
+    # deploy needed. I've kept it here for reference because I'm going to have to do this exact
+    # thing fairly soon for a different repo. I did deploy successfully with this which was when
+    # I realized my mistake
+    #- name: Deploy to Cloud Run
+    #  if: success() # Only run on successful push
+    #  run: |
+    #    gcloud run deploy ${{ env.CLOUD_RUN_SERVICE_NAME }} \
+    #      --image ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GAR_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest \
+    #      --region ${{ env.CLOUD_RUN_REGION }} \
+    #      --project ${{ env.GCP_PROJECT_ID }} \
+    #      --quiet
